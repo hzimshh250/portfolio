@@ -1,0 +1,313 @@
+/* ─── Google Fonts — must precede all other rules ────── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+
+/* ─── Theme Tokens ─────────────────────────────────────── */
+@theme {
+    --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    --color-neon: #ec4899;
+    --color-neon-dim: #9d174d;
+    --color-grid: #18181b;
+    --color-surface: #0a0a0a;
+    --color-panel: #111111;
+
+    --animate-flicker: flicker 3s infinite;
+    --animate-blink: blink 1s step-end infinite;
+    --animate-scan: scan 8s linear infinite;
+    --animate-fade-up: fadeUp 0.6s ease forwards;
+    --animate-pulse-border: pulseBorder 2s ease-in-out infinite;
+}
+
+/* ─── Keyframes ────────────────────────────────────────── */
+@keyframes flicker {
+    0%, 95%, 100% { opacity: 1; }
+    96%            { opacity: 0.7; }
+    97%            { opacity: 1; }
+    98%            { opacity: 0.4; }
+    99%            { opacity: 1; }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+@keyframes scan {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseBorder {
+    0%, 100% { border-color: #ec4899; box-shadow: 0 0 0px #ec4899; }
+    50%       { border-color: #ec4899; box-shadow: 0 0 12px #ec4899; }
+}
+
+@keyframes progressFill {
+    from { width: 0; }
+    to   { width: var(--target-w); }
+}
+
+@keyframes typewriter {
+    from { width: 0; }
+    to   { width: 100%; }
+}
+
+/* ─── Base Reset ───────────────────────────────────────── */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: var(--font-mono);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* ─── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #27272a; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #ec4899; }
+
+/* ─── Selection ────────────────────────────────────────── */
+::selection {
+    background-color: #ec4899;
+    color: #000;
+}
+
+/* ─── Grid Background ──────────────────────────────────── */
+.bg-grid {
+    background-color: #000000;
+    background-image:
+        linear-gradient(to right, #18181b 1px, transparent 1px),
+        linear-gradient(to bottom, #18181b 1px, transparent 1px);
+    background-size: 4rem 4rem;
+}
+
+/* ─── Outlined Text (webkit stroke) ───────────────────── */
+.text-stroke {
+    -webkit-text-stroke: 1.5px #ffffff;
+    color: transparent;
+}
+
+.text-stroke-pink {
+    -webkit-text-stroke: 1.5px #ec4899;
+    color: transparent;
+}
+
+/* ─── Neon Glow ────────────────────────────────────────── */
+.neon-glow {
+    text-shadow: 0 0 20px #ec4899, 0 0 40px #ec489960;
+}
+
+.neon-border {
+    box-shadow: 0 0 0 1px #ec4899, 0 0 12px #ec489940;
+}
+
+/* ─── Cursor Blink ─────────────────────────────────────── */
+.cursor::after {
+    content: '_';
+    animation: blink 1s step-end infinite;
+    color: #ec4899;
+    font-weight: 700;
+}
+
+/* ─── Scan Line ────────────────────────────────────────── */
+.scan-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #ec489930, transparent);
+    pointer-events: none;
+    z-index: 9999;
+    animation: scan 8s linear infinite;
+}
+
+/* ─── Progress Bar ─────────────────────────────────────── */
+.progress-bar-fill {
+    animation: progressFill 2s ease-out forwards;
+}
+
+/* ─── Card Hover ───────────────────────────────────────── */
+.project-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 0 1px #ec4899, 0 0 24px #ec489930;
+}
+
+.project-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.card-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* ─── Tag Hover ────────────────────────────────────────── */
+.skill-tag {
+    transition: all 0.2s ease;
+}
+
+.skill-tag:hover {
+    border-color: #ec4899;
+    color: #ec4899;
+    box-shadow: 0 0 8px #ec489940;
+}
+
+/* ─── XP Timeline Node ─────────────────────────────────── */
+.xp-node::before {
+    content: '◆';
+    color: #ec4899;
+    font-size: 0.6rem;
+    position: absolute;
+    left: -1.15rem;
+    top: 0.3rem;
+    text-shadow: 0 0 8px #ec4899;
+}
+
+/* ─── Button Hover ─────────────────────────────────────── */
+.btn-ghost {
+    transition: all 0.2s ease;
+}
+
+.btn-ghost:hover {
+    border-color: #ec4899 !important;
+    color: #ec4899 !important;
+    box-shadow: 0 0 8px #ec489940;
+}
+
+/* ─── Nav Link Hover ───────────────────────────────────── */
+.nav-link {
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #ec4899;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: #ec4899;
+}
+
+/* ─── Section Fade Up ──────────────────────────────────── */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── Project Modal ────────────────────────────────────── */
+#project-modal {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+#project-modal.modal-open {
+    opacity: 1;
+}
+
+#modal-panel {
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    opacity: 0;
+}
+
+#project-modal.modal-open #modal-panel {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+body.modal-active {
+    overflow: hidden;
+}
+
+/* Gallery thumbnails */
+.gallery-thumb {
+    flex-shrink: 0;
+    width: 64px;
+    height: 44px;
+    object-fit: cover;
+    border: 1px solid #27272a;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all 0.2s ease;
+}
+
+.gallery-thumb:hover {
+    opacity: 0.8;
+    border-color: #71717a;
+}
+
+.gallery-thumb.active {
+    opacity: 1;
+    border-color: #ec4899;
+    box-shadow: 0 0 8px #ec489940;
+}
+
+/* Gallery placeholder thumbs */
+.gallery-thumb-placeholder {
+    flex-shrink: 0;
+    width: 64px;
+    height: 44px;
+    border: 1px solid #27272a;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.5;
+    font-size: 9px;
+    color: #3f3f46;
+    transition: all 0.2s ease;
+}
+
+/* ─── Skill Pyramid Cards ───────────────────────────────── */
+.skill-pyramid-card {
+    min-width: 72px;
+}
+
+.skill-pyramid-card:hover {
+    box-shadow: 0 0 12px #ec489920, inset 0 0 8px #ec489908;
+}
