@@ -14,6 +14,12 @@ return Application::configure(basePath: dirname(__DIR__))
         // Trust all proxies — required for Railway/cloud reverse proxies
         // so Laravel generates https:// URLs correctly
         $middleware->trustProxies(at: '*');
+
+        // Exempt contact form — token sent via X-CSRF-TOKEN header
+        // belt-and-suspenders for Railway ephemeral session edge cases
+        $middleware->validateCsrfTokens(except: [
+            '/contact',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
