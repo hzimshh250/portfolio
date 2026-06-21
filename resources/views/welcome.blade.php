@@ -543,63 +543,50 @@
     {{-- Separator --}}
     <div class="border-t border-zinc-800 mb-12"></div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 fade-in" style="transition-delay: 0.1s">
+    <div class="fade-in" style="transition-delay: 0.1s">
 
-        {{-- Left: Message --}}
-        <div>
-            <p class="text-sm text-zinc-400 leading-relaxed mb-8">
-                <span class="text-pink-500">$</span>
-                BSE (Multimedia) graduate available for full-time roles and freelance projects.
-                Experienced in Laravel full-stack development with real production deployments.
-                If you have a system worth building - let's talk.
-            </p>
-            <div class="space-y-3">
-                <a href="mailto:[hazimshah69@gmail.com]" id="contact-email"
-                   class="flex items-center gap-3 text-xs text-zinc-500 hover:text-pink-500 transition-colors group">
-                    <span class="text-pink-500/40 group-hover:text-pink-500">▸</span>
-                    hazimshah69@gmail.com
-                </a>
-                <a href="https://www.linkedin.com/in/muhdhazimshah/" target="_blank" id="contact-linkedin"
-                   class="flex items-center gap-3 text-xs text-zinc-500 hover:text-pink-500 transition-colors group">
-                    <span class="text-pink-500/40 group-hover:text-pink-500">▸</span>
-                    linkedin.com/in/muhdhazimshah/
-                </a>
-            </div>
+        <p class="text-sm text-zinc-400 leading-relaxed mb-10 max-w-xl">
+            <span class="text-pink-500">$</span>
+            BSE (Multimedia) graduate available for full-time roles and freelance projects.
+            Experienced in Laravel full-stack development with real production deployments.
+            If you have a system worth building — let's talk.
+        </p>
 
-            {{-- Download Resume --}}
-            <div class="pt-6 mt-2 border-t border-zinc-800">
-                <p class="text-[9px] text-zinc-700 tracking-[0.4em] uppercase mb-3">// ATTACH_RESUME</p>
-                <a href="{{ asset('files/resume.pdf') }}" download="Hazim_Shah_Resume.pdf" id="contact-resume-download"
-                   class="btn-ghost inline-flex items-center gap-3 px-6 py-3 border border-dashed border-zinc-700 text-zinc-400 text-xs tracking-widest uppercase hover:border-pink-500 hover:text-pink-500 transition-all duration-200 group">
-                    <span class="text-base leading-none group-hover:translate-y-0.5 transition-transform duration-200">↓</span>
-                    DOWNLOAD_CV.PDF
-                </a>
-            </div>
+        {{-- Contact Links --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+
+            <a href="mailto:hazimshah69@gmail.com" id="contact-email"
+               class="flex items-center gap-4 p-4 border border-zinc-800 hover:border-pink-500/50 hover:bg-pink-500/5 transition-all duration-200 group">
+                <span class="text-pink-500/50 text-lg group-hover:text-pink-500 transition-colors">✉</span>
+                <div>
+                    <p class="text-[9px] text-zinc-700 tracking-widest uppercase mb-1">EMAIL</p>
+                    <p class="text-xs text-zinc-400 group-hover:text-white transition-colors">hazimshah69@gmail.com</p>
+                </div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/muhdhazimshah/" target="_blank" id="contact-linkedin"
+               class="flex items-center gap-4 p-4 border border-zinc-800 hover:border-pink-500/50 hover:bg-pink-500/5 transition-all duration-200 group">
+                <span class="text-pink-500/50 text-lg group-hover:text-pink-500 transition-colors">in</span>
+                <div>
+                    <p class="text-[9px] text-zinc-700 tracking-widest uppercase mb-1">LINKEDIN</p>
+                    <p class="text-xs text-zinc-400 group-hover:text-white transition-colors">muhdhazimshah</p>
+                </div>
+            </a>
+
         </div>
 
-        {{-- Right: Terminal-style form --}}
-        <form id="contact-form" class="space-y-4">
-            <div class="border border-zinc-800 p-1 focus-within:border-pink-500/50 transition-colors">
-                <label class="block text-[9px] text-zinc-600 tracking-widest px-2 pt-1">NAME_INPUT</label>
-                <input type="text" name="name" id="form-name" placeholder="YOUR_NAME"
-                       class="w-full bg-transparent px-2 py-2 text-xs text-zinc-300 placeholder-zinc-700 outline-none">
-            </div>
-            <div class="border border-zinc-800 p-1 focus-within:border-pink-500/50 transition-colors">
-                <label class="block text-[9px] text-zinc-600 tracking-widest px-2 pt-1">EMAIL_INPUT</label>
-                <input type="email" name="email" id="form-email" placeholder="YOUR@EMAIL.COM"
-                       class="w-full bg-transparent px-2 py-2 text-xs text-zinc-300 placeholder-zinc-700 outline-none">
-            </div>
-            <div class="border border-zinc-800 p-1 focus-within:border-pink-500/50 transition-colors">
-                <label class="block text-[9px] text-zinc-600 tracking-widest px-2 pt-1">MESSAGE_INPUT</label>
-                <textarea name="message" id="form-message" rows="5" placeholder="DESCRIBE_YOUR_PROJECT //"
-                          class="w-full bg-transparent px-2 py-2 text-xs text-zinc-300 placeholder-zinc-700 outline-none resize-none"></textarea>
-            </div>
-            <button type="submit" id="form-submit"
-                    class="btn-ghost w-full py-3 border border-pink-500 text-pink-500 text-xs tracking-widest uppercase hover:bg-pink-500 hover:text-black transition-all duration-200">
-                TRANSMIT_MESSAGE //
-            </button>
-        </form>
+        {{-- Download Resume --}}
+        <div class="border-t border-zinc-800 pt-8">
+            <p class="text-[9px] text-zinc-700 tracking-[0.4em] uppercase mb-4">// ATTACH_RESUME</p>
+            <a href="{{ asset('files/resume.pdf') }}" download="Hazim_Shah_Resume.pdf" id="contact-resume-download"
+               class="btn-ghost inline-flex items-center gap-3 px-6 py-3 border border-dashed border-zinc-700 text-zinc-400 text-xs tracking-widest uppercase hover:border-pink-500 hover:text-pink-500 transition-all duration-200 group">
+                <span class="text-base leading-none group-hover:translate-y-0.5 transition-transform duration-200">↓</span>
+                DOWNLOAD_CV.PDF
+            </a>
+        </div>
+
     </div>
+
 </section>
 
 
