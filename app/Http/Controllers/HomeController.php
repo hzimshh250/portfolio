@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactMail;
 
 class HomeController extends Controller
 {
@@ -113,5 +117,24 @@ class HomeController extends Controller
         ];
 
         return view('welcome', compact('projects', 'experiences', 'skills'));
+    }
+
+    public function contact(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'name'    => ['required', 'string', 'max:100'],
+            'email'   => ['required', 'email', 'max:150'],
+            'message' => ['required', 'string', 'max:2000'],
+        ]);
+
+        Mail::to('hazimshah69@gmail.com')->send(
+            new ContactMail(
+                senderName: $validated['name'],
+                senderEmail: $validated['email'],
+                senderMessage: $validated['message'],
+            )
+        );
+
+        return response()->json(['status' => 'ok']);
     }
 }

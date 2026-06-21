@@ -111,38 +111,76 @@
 
 
 /* ─────────────────────────────────────────────────────────
-   5. CONTACT FORM — Basic UX
+   5. CONTACT FORM — Real Laravel Mail submission
 ───────────────────────────────────────────────────────── */
 (function initContactForm() {
     const form = document.getElementById('contact-form');
     if (!form) return;
 
-    form.addEventListener('submit', (e) => {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const btn = document.getElementById('form-submit');
-        if (!btn) return;
 
-        const original = btn.textContent;
-        btn.textContent = '// TRANSMITTING...';
-        btn.disabled = true;
-        btn.style.opacity = '0.6';
+        const btn     = document.getElementById('form-submit');
+        const name    = document.getElementById('form-name').value.trim();
+        const email   = document.getElementById('form-email').value.trim();
+        const message = document.getElementById('form-message').value.trim();
 
-        setTimeout(() => {
-            btn.textContent = '// MESSAGE_SENT ✓';
-            btn.style.borderColor = '#22c55e';
-            btn.style.color = '#22c55e';
-            form.reset();
+        if (!name || !email || !message) {
+            setBtn(btn, '// ALL_FIELDS_REQUIRED', '#f59e0b', false);
+            setTimeout(() => resetBtn(btn), 3000);
+            return;
+        }
 
-            setTimeout(() => {
-                btn.textContent = original;
-                btn.disabled = false;
-                btn.style.opacity = '';
-                btn.style.borderColor = '';
-                btn.style.color = '';
-            }, 3000);
-        }, 1500);
+        setBtn(btn, '// TRANSMITTING...', '', true);
+
+        try {
+            const res = await fetch('/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept':       'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: JSON.stringify({ name, email, message }),
+            });
+
+            if (res.ok) {
+                setBtn(btn, '// MESSAGE_SENT ✓', '#22c55e', false);
+                form.reset();
+                setTimeout(() => resetBtn(btn), 4000);
+            } else {
+                const data = await res.json().catch(() => ({}));
+                const firstError = data?.errors
+                    ? Object.values(data.errors)[0]?.[0]
+                    : 'TRANSMISSION_FAILED';
+                setBtn(btn, `// ${firstError.toUpperCase()}`, '#ef4444', false);
+                setTimeout(() => resetBtn(btn), 4000);
+            }
+        } catch {
+            setBtn(btn, '// CONNECTION_ERROR', '#ef4444', false);
+            setTimeout(() => resetBtn(btn), 4000);
+        }
     });
+
+    function setBtn(btn, text, color, disabled) {
+        btn.textContent = text;
+        btn.disabled    = disabled;
+        btn.style.opacity     = disabled ? '0.6' : '1';
+        btn.style.color       = color || '';
+        btn.style.borderColor = color || '';
+    }
+
+    function resetBtn(btn) {
+        btn.textContent = 'TRANSMIT_MESSAGE //';
+        btn.disabled    = false;
+        btn.style.opacity     = '';
+        btn.style.color       = '';
+        btn.style.borderColor = '';
+    }
 })();
+
 
 
 /* ─────────────────────────────────────────────────────────
