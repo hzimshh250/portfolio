@@ -97,6 +97,10 @@
                class="btn-ghost px-6 py-3 border border-zinc-700 text-zinc-400 text-xs tracking-widest uppercase">
                 INITIATE_CONTACT
             </a>
+            <a href="{{ asset('files/resume.pdf') }}" download="Hazim_Shah_Resume.pdf" id="hero-cta-resume"
+               class="btn-ghost flex items-center gap-2 px-6 py-3 border border-dashed border-zinc-700 text-zinc-500 text-xs tracking-widest uppercase hover:border-pink-500 hover:text-pink-500 transition-all duration-200">
+                <span class="text-[10px]">↓</span> DOWNLOAD_CV
+            </a>
         </div>
     </div>
 
@@ -559,6 +563,16 @@
                    class="flex items-center gap-3 text-xs text-zinc-500 hover:text-pink-500 transition-colors group">
                     <span class="text-pink-500/40 group-hover:text-pink-500">▸</span>
                     linkedin.com/in/muhdhazimshah/
+                </a>
+            </div>
+
+            {{-- Download Resume --}}
+            <div class="pt-6 mt-2 border-t border-zinc-800">
+                <p class="text-[9px] text-zinc-700 tracking-[0.4em] uppercase mb-3">// ATTACH_RESUME</p>
+                <a href="{{ asset('files/resume.pdf') }}" download="Hazim_Shah_Resume.pdf" id="contact-resume-download"
+                   class="btn-ghost inline-flex items-center gap-3 px-6 py-3 border border-dashed border-zinc-700 text-zinc-400 text-xs tracking-widest uppercase hover:border-pink-500 hover:text-pink-500 transition-all duration-200 group">
+                    <span class="text-base leading-none group-hover:translate-y-0.5 transition-transform duration-200">↓</span>
+                    DOWNLOAD_CV.PDF
                 </a>
             </div>
         </div>
