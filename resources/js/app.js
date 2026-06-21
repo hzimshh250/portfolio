@@ -184,7 +184,7 @@
 
 
 /* ─────────────────────────────────────────────────────────
-   6. TERMINAL GLITCH on Hero Name hover
+   6. TERMINAL GLITCH on Hero Name — hover + touch + mobile auto-play
 ───────────────────────────────────────────────────────── */
 (function initGlitch() {
     const hero = document.querySelector('#hero h1');
@@ -193,7 +193,7 @@
     const chars = '!@#$%^&*<>?/\\|[]{}~`';
     let glitchInterval = null;
 
-    hero.addEventListener('mouseenter', () => {
+    function runGlitch() {
         if (glitchInterval) return;
         let count = 0;
         const spans = hero.querySelectorAll('span');
@@ -218,8 +218,25 @@
                 spans.forEach((span, i) => { span.textContent = originals[i]; });
             }
         }, 60);
-    });
+    }
+
+    // Desktop: trigger on hover
+    hero.addEventListener('mouseenter', runGlitch);
+
+    // Mobile/touch: trigger on tap
+    hero.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        runGlitch();
+    }, { passive: false });
+
+    // Mobile auto-play: run once on load, then repeat every 6s
+    const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
+    if (isTouchDevice()) {
+        setTimeout(runGlitch, 1200);
+        setInterval(() => { if (!glitchInterval) runGlitch(); }, 6000);
+    }
 })();
+
 
 
 /* ─────────────────────────────────────────────────────────
